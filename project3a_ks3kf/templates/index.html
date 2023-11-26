@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Data Visualizer</title>
+</head>
+<body>
+    <h1>Stock Data Visualizer</h1>
+    <form method="post" action="/">
+        <label for="stock_symbol">Choose Symbol:</label>
+        <select id="stock_symbol" name="stock_symbol" required></select><br><br>
+
+        <label for="chart_choice">Choose Chart Type:</label>
+        <select id="chart_choice" name="chart_choice" required>
+            <option value="1">Bar</option>
+            <option value="2">Line</option>
+        </select><br><br>
+
+        <label for="time_series_choice">Choose Time Series:</label>
+        <select id="time_series_choice" name="time_series_choice" required>
+            <option value="1">Intraday</option>
+            <option value="2">Daily</option>
+            <option value="3">Weekly</option>
+            <option value="4">Monthly</option>
+        </select><br><br>
+
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_date" required><br><br>
+
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_date" required><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <div id="chart-container">
+        {{ chart_data|safe }}
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const selectElement = document.getElementById('stock_symbol');
+    fetch('/get_stock_symbols')
+    .then(response => response.json())
+    .then(data => {
+        if (data && data.symbols) {
+            data.symbols.forEach(symbol => {
+                let option = document.createElement('option');
+                option.text = symbol;
+                option.value = symbol;
+                selectElement.appendChild(option);
+            });
+        }
+    })
+    .catch(error => console.error('Error fetching stock symbols:', error));
+
+            fetch('/get_stock_symbols')
+            .then(response => response.json())
+            .then(data => {
+                const selectElement = document.getElementById('stock_symbol');
+                data.symbols.forEach(symbol => {
+                    let option = document.createElement('option');
+                    option.text = symbol;
+                    option.value = symbol;
+                    selectElement.add(option);
+                });
+            })
+            .catch(error => console.error('Error fetching stock symbols:', error));
+        });
+        </script>
+        <script src="https://kozea.github.io/pygal.js/javascripts/svg.jquery.js"></script>
+        <script src="https://kozea.github.io/pygal.js/javascripts/pygal-tooltips.js"></script>
+</body>
+</html>

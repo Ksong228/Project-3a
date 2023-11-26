@@ -1,0 +1,17 @@
+version: '3.9'
+services:
+  flask_app:
+    container_name: Project_3a_Flask
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: flask_stock_class_image
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+    command: python app.py --host=0.0.0.0
