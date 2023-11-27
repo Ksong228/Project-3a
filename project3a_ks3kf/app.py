@@ -104,9 +104,11 @@ def index():
             if data:
                 # Note: Comment out code of another method to keep as reference, not part of code. 
                 # chart_file_path = generate_chart(data, chart_choice, time_series_function, stock_symbol, start_date, end_date)
-                chart = generate_chart(data, chart_choice, time_series_function, stock_symbol, start_date, end_date)
-                if chart:
-                    svg_data = chart.render(is_unicode=True)
+                # * chart = generate_chart(data, chart_choice, time_series_function, stock_symbol, start_date, end_date)
+                # * if chart:
+                svg_data = generate_chart(data, chart_choice, time_series_function, stock_symbol, start_date, end_date)
+                if svg_data:
+                    # * svg_data = chart.render(is_unicode=True)
                     return render_template('index.html', chart_data=svg_data)
                 # if chart_file_path:
                 #     return render_template('result.html', chart_path=chart_file_path)

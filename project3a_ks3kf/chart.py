@@ -25,7 +25,8 @@ def generate_chart(chart_type, x_labels, data, symbol, start_date, end_date):
     chart.add('Close', data['close'])
 
     svg_data = chart.render(is_unicode=True)
-    return render_template('index.html', chart_data=svg_data)
+    return svg_data
+    # return render_template('index.html', chart_data=svg_data)
 
     # Note: This below code is of another method of displaying the chart, keeping it there for reference, not part of code.
     # Save the chart as an SVG file with a name based on the symbol and date range
